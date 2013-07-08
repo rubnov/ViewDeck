@@ -294,6 +294,7 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
 @synthesize parallaxAmount = _parallaxAmount;
 @synthesize centerTapperAccessibilityLabel = _centerTapperAccessibilityLabel;
 @synthesize centerTapperAccessibilityHint = _centerTapperAccessibilityHint;
+@synthesize wantsFullScreenLayout=_wantsFullScreenLayout;
 
 #pragma mark - Initalisation and deallocation
 
@@ -618,6 +619,39 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
     [self hide:(CGRectGetMinY(self.slidingControllerView.frame) <= 0) controllerViewForSide:IIViewDeckTopSide];
     [self hide:(CGRectGetMaxY(self.slidingControllerView.frame) >= self.referenceBounds.size.height) controllerViewForSide:IIViewDeckBottomSide];
 }
+
+
+#pragma mark - Adjusting for status bar appearance
+
+- (void) setWantsFullScreenLayout:(BOOL)wants
+{    
+    if (_wantsFullScreenLayout == wants) {
+        return;
+    }
+
+    _wantsFullScreenLayout = wants;
+
+    CGRect frame = self.view.frame;
+    self.view.frame = frame;
+    
+}
+
+- (void) setWantsFullScreenLayout:(BOOL)wants animated:(BOOL)animated
+{
+    if (_wantsFullScreenLayout == wants) {
+        return;
+    }
+    
+    if (animated) {
+        [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+            self.wantsFullScreenLayout = wants;
+        }];
+    }
+    else{
+        self.wantsFullScreenLayout = wants;
+    }
+}
+
 
 #pragma mark - ledges
 

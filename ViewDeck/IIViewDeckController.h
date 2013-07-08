@@ -85,7 +85,7 @@ typedef UInt32 IIViewDeckOffsetOrientation;
 enum {
     IIViewDeckNoPanning,              // no panning allowed
     IIViewDeckFullViewPanning,        // the default: touch anywhere in the center view to drag the center view around
-    IIViewDeckNavigationBarPanning,   // panning only occurs when you start touching in the navigation bar (when the center controller is a UINavigationController with a visible navigation bar). Otherwise it will behave as IIViewDeckNoPanning. 
+    IIViewDeckNavigationBarPanning,   // panning only occurs when you start touching in the navigation bar (when the center controller is a UINavigationController with a visible navigation bar). Otherwise it will behave as IIViewDeckNoPanning.
     IIViewDeckPanningViewPanning,      // panning only occurs when you start touching in a UIView set in panningView property
     IIViewDeckDelegatePanning,         // allows panning with a delegate
     IIViewDeckNavigationBarOrOpenCenterPanning,      //panning occurs when you start touching the navigation bar if the center controller is visible.  If the left or right controller is open, pannning occurs anywhere on the center controller, not just the navbar.
@@ -286,6 +286,9 @@ typedef void (^IIViewDeckControllerBounceBlock) (IIViewDeckController *controlle
 - (BOOL)closeOpenViewAnimated:(BOOL)animated duration:(NSTimeInterval)duration completion:(IIViewDeckControllerBlock)completed;
 - (BOOL)closeOpenViewBouncing:(IIViewDeckControllerBounceBlock)bounced;
 - (BOOL)closeOpenViewBouncing:(IIViewDeckControllerBounceBlock)bounced completion:(IIViewDeckControllerBlock)completed;
+
+@property (nonatomic, assign) BOOL wantsFullScreenLayout;
+- (void) setWantsFullScreenLayout:(BOOL)wants animated:(BOOL)animated;
 
 - (BOOL)previewBounceView:(IIViewDeckSide)viewDeckSide;
 - (BOOL)previewBounceView:(IIViewDeckSide)viewDeckSide withCompletion:(IIViewDeckControllerBlock)completed;

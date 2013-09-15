@@ -1170,6 +1170,24 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
     _ledge[side] = [self performDelegate:@selector(viewDeckController:changesLedge:forSide:) ledge:ledge side:side];
 }
 
+
+
+#pragma mark - Status bar iOS7
+
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    if([self isSideOpen:IIViewDeckLeftSide]){
+        return self.leftController;
+    }
+    else if([self isSideOpen:IIViewDeckRightSide]){
+        return self.rightController;
+    }
+    
+    return self.centerController;
+}
+
+
+
 #pragma mark - Notify
 
 - (CGFloat)ledgeOffsetForSide:(IIViewDeckSide)viewDeckSide {
@@ -1319,6 +1337,9 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
         BOOL (*objc_msgSendTyped)(id self, SEL _cmd, BOOL animated) = (void*)objc_msgSend;
         objc_msgSendTyped(controller, selector, animated);
     }
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+
 }
 
 - (void)transitionAppearanceFrom:(uint)from to:(uint)to animated:(BOOL)animated {

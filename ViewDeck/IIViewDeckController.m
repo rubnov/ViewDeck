@@ -1338,7 +1338,9 @@ static NSTimeInterval durationToAnimate(CGFloat pointsToAnimate, CGFloat velocit
         objc_msgSendTyped(controller, selector, animated);
     }
     
-    [self setNeedsStatusBarAppearanceUpdate];
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
 
 }
 
